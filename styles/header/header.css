@@ -1,0 +1,43 @@
+header {
+    margin-top: 10px;
+}
+
+header img{
+    width: 21px; 
+    height: 17px;
+}
+
+.underbar {
+    background: #B5C401 0% 0% no-repeat padding-box;
+    border-radius: 6px;
+    opacity: 1;
+    height: 5px;
+}
+
+.title-left{
+    display: flex; 
+    align-items: center;
+}
+
+.title-right{
+    display: flex; 
+    margin-right: 230px;
+}
+
+.game-links{
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    margin-left: 141px;
+}
+
+#account{
+    margin-right: 40px; 
+    font-weight: bold;
+}
+
+#logout{
+    font-weight: bold; 
+    margin-right: 5px;
+}
+

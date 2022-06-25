@@ -1,0 +1,79 @@
+body{
+    background-color: bisque;
+    padding-bottom: 500px;
+}
+/*
+justify-content 
+--> Define o alinhamento horizontal dos filhos
+
+justify-content: space-around
+--> da uma espaçamento entre os itens
+
+justify-content: space-between
+--> dá um maior espaçamento entre os itens
+
+align-itens
+--> Define o alinhamento vertical
+
+align-itens: center
+--> alinha os filhos no centro, porém, na vertical
+*/
+
+/*
+flex-wrap: wrap
+--> isso vai faze com que, quando a área máxima na linha for atingida,
+--> os elementos serão jogando em uma segunda linha. 
+*/
+
+/*
+
+*/
+.container{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    flex-wrap: wrap;
+
+    background-color: rgb(0, 0, 0);
+    border: 2px solid red;
+    padding: 15px;
+    max-width: 300px;
+    height: 300px;
+}
+
+.item{
+    background-color: blueviolet;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border: 1px solid greenyellow
+}
+
+.box{
+    background-color: blueviolet;
+    color: white;
+    height: 50px;
+    border: 1px solid greenyellow;
+    flex-basis: 30px; /*Começa inicialmente com 30 de width*/
+}
+
+/*Aqui, o item-1 terá sempre duas vezes o tamanho dos outros elementos*/
+/* #item-1{
+    flex-grow: 2;
+}
+
+#item-2, #item-3{
+    flex-grow: 1;
+} */
+
+#item-1{
+    order: 2;
+}
+
+#item-2{
+    order: 3;
+}
+
+#item-3{
+    order: 1;
+}
