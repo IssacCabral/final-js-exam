@@ -1,11 +1,20 @@
 (() => {
     'use strict'
 
-    let $lotoButton = document.querySelector('button[data-js="loto-button"]')
+    function init(){
+        const ajax = new XMLHttpRequest
+        ajax.open('GET', '../data/games.json')
+        ajax.send()
+        ajax.addEventListener('readystatechange', function(){
+            if(isReady.call(this)){
+                console.log(this.responseText)
+            }
+        })
+    }
 
-    console.log($lotoButton)
+    function isReady(){
+        return this.readyState === 4 && this.status === 200
+    }
 
-    $lotoButton.addEventListener('click', function(){
-        console.log('Clicou em mim baby')
-    })
+    init()
 })()
