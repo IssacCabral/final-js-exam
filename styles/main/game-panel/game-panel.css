@@ -36,15 +36,17 @@
 }
 
 /*Buttons styles*/
-.choose-game .button {
+.button {
     border-radius: 100px;
     width: 80px;
     text-align: center;
     opacity: 1;
     font-weight: bold;
+    cursor: pointer;
+    margin-right: 7px;
 }
 
-#button-1 {
+/* #button-1 {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 2px solid #7F3992;
     color: #7F3992;
@@ -60,7 +62,8 @@
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 2px solid #F79C31;
     color: #F79C31;
-}
+} */
+
 
 .rules {
     padding: 15px;
