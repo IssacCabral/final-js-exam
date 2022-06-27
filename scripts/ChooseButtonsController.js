@@ -35,18 +35,70 @@
         }
 
         handleRulesAndButtons() {
-            
+
             if (ChooseButtonsController.prototype.selectedButton === this) {
                 return
             }
 
             ChooseButtonsController.prototype.selectedButton = this
+
             ChooseButtonsController.prototype.setButtonColors.call(this)
             ChooseButtonsController.prototype.setRulesAndRenderNumbers.call(this)
-
         }
 
-        setButtonColors(){
+        clearChooseButtonsColors() {
+            // console.log(ChooseButtonsController.prototype.selectedButton)
+            // console.log(this)
+            const background = "#FFFFFF"
+            const lotofacilColor = "#7F3992"
+            const megaSenaColor = "#01AC66"
+            const quinaColor = "#F79C31"
+
+            document.querySelectorAll('.choose-button').forEach(button => {
+                if (!(button === this)) {
+                    if(button.innerHTML === 'Lotofácil'){
+                        button.style.color = lotofacilColor
+                        button.style.border = "2px solid " + lotofacilColor
+                        button.style.background = background
+                    }
+                    if(button.innerHTML === 'Mega-Sena'){
+                        button.style.color = megaSenaColor
+                        button.style.border = "2px solid " + megaSenaColor
+                        button.style.background = background
+                    }
+                    if(button.innerHTML === 'Quina'){
+                        button.style.color = quinaColor
+                        button.style.border = "2px solid " + quinaColor
+                        button.style.background = background
+                    }
+                }
+            })
+        }
+
+        clearRulesAndButtons(){
+            let rules = document.querySelector('.rules')
+            let checkIfExistsRuleText = document.querySelector('.rule-text')
+            if(checkIfExistsRuleText){
+                rules.removeChild(checkIfExistsRuleText)
+            }
+        }  
+
+        clearNumberButtons(){
+            let game = document.querySelector('.game')
+            let checkIfExistsNumberButtons = document.querySelector('.number-buttons-div')
+
+            if(checkIfExistsNumberButtons.hasChildNodes()){
+                checkIfExistsNumberButtons.innerText = ""
+            }
+            
+        }   
+
+        setButtonColors() {
+            // clear
+            ChooseButtonsController.prototype.clearChooseButtonsColors.call(this)
+            ChooseButtonsController.prototype.clearRulesAndButtons.call(this)
+            ChooseButtonsController.prototype.clearNumberButtons.call(this)
+
             let backgroundColorChooseButton = this.style.background
             let chooseButtonColor = this.style.color
             let colorToApplyInButtons = this.style.color
@@ -59,7 +111,7 @@
             this.style.color = backgroundColorChooseButton
             this.style.background = chooseButtonColor
             this.style.border = "2px solid " + backgroundColorChooseButton
-            
+
             const arrayButtons = [completeGameButton, clearGameButton]
 
             arrayButtons.forEach(button => {
@@ -72,27 +124,28 @@
             addToCartButton.style.border = '1px solid ' + colorToApplyInButtons
         }
 
-        setRulesAndRenderNumbers(){
+        setRulesAndRenderNumbers() {
             let rule = document.querySelector('.rules')
             let ruleText = document.createElement('p')
-            
+
             let numberButtonsDiv = document.querySelector('.number-buttons-div')
 
             let ajaxRequest = new AjaxRequest()
             let data = JSON.parse(ajaxRequest.loadData())
 
             data.types.forEach(element => {
-                if(element.type === this.innerHTML){
+                if (element.type === this.innerHTML) {
                     ruleText.appendChild(document.createTextNode(element.description))
+                    ruleText.classList.add('rule-text')
                     rule.appendChild(ruleText)
                 }
             })
             data.types.forEach(element => {
-                if(element.type === this.innerHTML){
+                if (element.type === this.innerHTML) {
                     // generate numberButtons
                     let range = element.range
-                    
-                    for(let i = 0; i < range; i++){
+
+                    for (let i = 0; i < range; i++) {
                         let numberButton = document.createElement('button')
                         numberButton.classList.add('number')
                         numberButton.innerHTML = i + 1
