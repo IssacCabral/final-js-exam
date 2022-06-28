@@ -1,4 +1,4 @@
-(function (AjaxRequest, DOM) {
+(function (AjaxRequest, DOM, CompleteGame) {
     'use strict'
 
     class ChooseButtonsController {
@@ -33,38 +33,38 @@
             })
         }
 
+
+        // Lembrar de depois, tentar criar classes para cada chamada
+        // dessas callbacks e passar as informações necessárias
+        // para que essas classes trabalhem
         addEventToButton() {
             this.#chooseButtons = new DOM('.choose-button')
             this.#chooseButtons.on('click', this.handleRulesAndButtons)
 
             let clearGameButton = new DOM('#clear-game')
             clearGameButton.on('click', this.handleClickClearGame)
+
+            let completeGameButton = new DOM('#complete-game')
+            completeGameButton.on('click', CompleteGame.handleClickCompleteGameButton.bind(this.getSelectedNumbersAndChooseButton))
+
         }
 
         handleClickClearGame() {
             let numberButtons = new DOM('.number-selected')
-            console.log(ChooseButtonsController.selectedNumberButtons)
-            let data = ChooseButtonsController.prototype.returnDataInAjaxRequest()
 
             numberButtons.getAll().forEach(button => {
                 button.className = 'number-default'
                 ChooseButtonsController.counter = 0
                 ChooseButtonsController.selectedNumberButtons = []
             })
-
-            
         }
 
         handleRulesAndButtons() {
 
-            // if (ChooseButtonsController.prototype.selectedButton === this) {
-            //     return
-            // }
             if(ChooseButtonsController.selectedButton === this){
                 return
             }
 
-            // ChooseButtonsController.prototype.selectedButton = this
             ChooseButtonsController.selectedButton = this
 
             ChooseButtonsController.selectedNumberButtons = []
@@ -110,13 +110,8 @@
         }
 
         clearNumberButtons() {
-            let game = document.querySelector('.game')
             let checkIfExistsNumberButtons = document.querySelector('.number-buttons-div')
-
-            if (checkIfExistsNumberButtons.hasChildNodes()) {
-                checkIfExistsNumberButtons.innerText = ""
-            }
-
+            if (checkIfExistsNumberButtons.hasChildNodes()) checkIfExistsNumberButtons.innerText = ""
         }
 
         setButtonColors() {
@@ -173,7 +168,6 @@
 
                     for (let i = 0; i < range; i++) {
                         let numberButton = document.createElement('button')
-                        // numberButton.classList.add('number-default')
                         numberButton.className = 'number-default'
 
                         numberButton.innerHTML = i + 1
@@ -188,16 +182,12 @@
         selectNumberButtonsEvent() {
             let data = ChooseButtonsController.prototype.returnDataInAjaxRequest()
             let min_and_max_number
-            // let counter = 0
+
             data.types.forEach(element => {
-                // if (element.type === this.selectedButton.innerHTML) {
-                //     min_and_max_number = element.min_and_max_number
-                // }
                 if(element.type === ChooseButtonsController.selectedButton.innerHTML){
                     min_and_max_number = element.min_and_max_number
                 }
             })
-
 
             let numberButtons = new DOM('.number-default')
             numberButtons.on('click', function () {
@@ -224,8 +214,17 @@
             return data
         }
 
+        getSelectedChooseButton(){
+            return ChooseButtonsController.selectedButton
+        }
 
+        getSelectedNumbersAndChooseButton(){
+            return {
+                selectedNumbers: ChooseButtonsController.selectedNumberButtons,
+                chooseButton: ChooseButtonsController.selectedButton
+            } 
+        }
     }
 
     window.ChooseButtonsController = ChooseButtonsController
-})(window.AjaxRequest, window.DOM)
+})(window.AjaxRequest, window.DOM, window.CompleteGame)
