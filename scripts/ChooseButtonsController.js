@@ -7,6 +7,9 @@
         #chooseButtons
         selectedButton
 
+        static selectedNumberButtons = []
+        static counter = 0
+
         constructor() {
             this.#ajaxRequest = new AjaxRequest()
             this.#choose = document.querySelector('[data-js="choose"]')
@@ -32,6 +35,23 @@
         addEventToButton() {
             this.#chooseButtons = new DOM('.choose-button')
             this.#chooseButtons.on('click', this.handleRulesAndButtons)
+
+            let clearGameButton = new DOM('#clear-game')
+            clearGameButton.on('click', this.handleClickClearGame)
+        }
+
+        handleClickClearGame() {
+            let numberButtons = new DOM('.number-selected')
+            console.log(ChooseButtonsController.selectedNumberButtons)
+            let data = ChooseButtonsController.prototype.returnDataInAjaxRequest()
+
+            numberButtons.getAll().forEach(button => {
+                button.className = 'number-default'
+                ChooseButtonsController.counter = 0
+                ChooseButtonsController.selectedNumberButtons = []
+            })
+
+            
         }
 
         handleRulesAndButtons() {
@@ -47,8 +67,6 @@
         }
 
         clearChooseButtonsColors() {
-            // console.log(ChooseButtonsController.prototype.selectedButton)
-            // console.log(this)
             const background = "#FFFFFF"
             const lotofacilColor = "#7F3992"
             const megaSenaColor = "#01AC66"
@@ -56,17 +74,17 @@
 
             document.querySelectorAll('.choose-button').forEach(button => {
                 if (!(button === this)) {
-                    if(button.innerHTML === 'Lotofácil'){
+                    if (button.innerHTML === 'Lotofácil') {
                         button.style.color = lotofacilColor
                         button.style.border = "2px solid " + lotofacilColor
                         button.style.background = background
                     }
-                    if(button.innerHTML === 'Mega-Sena'){
+                    if (button.innerHTML === 'Mega-Sena') {
                         button.style.color = megaSenaColor
                         button.style.border = "2px solid " + megaSenaColor
                         button.style.background = background
                     }
-                    if(button.innerHTML === 'Quina'){
+                    if (button.innerHTML === 'Quina') {
                         button.style.color = quinaColor
                         button.style.border = "2px solid " + quinaColor
                         button.style.background = background
@@ -75,23 +93,23 @@
             })
         }
 
-        clearRulesAndButtons(){
+        clearRulesAndButtons() {
             let rules = document.querySelector('.rules')
             let checkIfExistsRuleText = document.querySelector('.rule-text')
-            if(checkIfExistsRuleText){
+            if (checkIfExistsRuleText) {
                 rules.removeChild(checkIfExistsRuleText)
             }
-        }  
+        }
 
-        clearNumberButtons(){
+        clearNumberButtons() {
             let game = document.querySelector('.game')
             let checkIfExistsNumberButtons = document.querySelector('.number-buttons-div')
 
-            if(checkIfExistsNumberButtons.hasChildNodes()){
+            if (checkIfExistsNumberButtons.hasChildNodes()) {
                 checkIfExistsNumberButtons.innerText = ""
             }
-            
-        }   
+
+        }
 
         setButtonColors() {
             // clear
@@ -147,13 +165,55 @@
 
                     for (let i = 0; i < range; i++) {
                         let numberButton = document.createElement('button')
-                        numberButton.classList.add('number')
+                        // numberButton.classList.add('number-default')
+                        numberButton.className = 'number-default'
+
                         numberButton.innerHTML = i + 1
                         numberButtonsDiv.appendChild(numberButton)
                     }
                 }
             })
+
+            ChooseButtonsController.prototype.selectNumberButtonsEvent()
         }
+
+        selectNumberButtonsEvent() {
+            let data = ChooseButtonsController.prototype.returnDataInAjaxRequest()
+            let min_and_max_number
+            // let counter = 0
+            data.types.forEach(element => {
+                if (element.type === this.selectedButton.innerHTML) {
+                    min_and_max_number = element.min_and_max_number
+                }
+            })
+
+
+            let numberButtons = new DOM('.number-default')
+            numberButtons.on('click', function () {
+                if (min_and_max_number == ChooseButtonsController.counter) {
+                    return
+                }
+
+                if(this.className === 'number-selected'){
+                    return
+                }
+
+                ChooseButtonsController.selectedNumberButtons.push(this.innerHTML)
+
+                this.className = 'number-selected'
+
+                ChooseButtonsController.counter++
+            })
+
+        }
+
+        returnDataInAjaxRequest() {
+            let ajaxRequest = new AjaxRequest()
+            let data = JSON.parse(ajaxRequest.loadData())
+            return data
+        }
+
+
     }
 
     window.ChooseButtonsController = ChooseButtonsController

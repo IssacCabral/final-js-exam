@@ -19,6 +19,10 @@
                 return this.#elements[0]
             return this.#elements[index]  
         }
+
+        getAll(){
+            return this.#elements
+        }
     }
 
     window.DOM = DOM

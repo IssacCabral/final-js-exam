@@ -1,15 +1,14 @@
-((ChooseButtonsController, document) => {
+((ChooseButtonsController, DOM, document) => {
     'use strict'
 
     let chooseButtonsController = new ChooseButtonsController()
 
-    function init(){
+
+    function init() {
         chooseButtonsController.createButtons()
         chooseButtonsController.addEventToButton()
     }
 
-    
     init()
-    
 
-})(window.ChooseButtonsController, document)
+})(window.ChooseButtonsController, window.DOM, document)
