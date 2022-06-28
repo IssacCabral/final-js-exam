@@ -5,8 +5,9 @@
         #ajaxRequest
         #choose
         #chooseButtons
-        selectedButton
 
+        // selectedButton
+        static selectedButton
         static selectedNumberButtons = []
         static counter = 0
 
@@ -56,11 +57,18 @@
 
         handleRulesAndButtons() {
 
-            if (ChooseButtonsController.prototype.selectedButton === this) {
+            // if (ChooseButtonsController.prototype.selectedButton === this) {
+            //     return
+            // }
+            if(ChooseButtonsController.selectedButton === this){
                 return
             }
 
-            ChooseButtonsController.prototype.selectedButton = this
+            // ChooseButtonsController.prototype.selectedButton = this
+            ChooseButtonsController.selectedButton = this
+
+            ChooseButtonsController.selectedNumberButtons = []
+            ChooseButtonsController.counter = 0
 
             ChooseButtonsController.prototype.setButtonColors.call(this)
             ChooseButtonsController.prototype.setRulesAndRenderNumbers.call(this)
@@ -182,7 +190,10 @@
             let min_and_max_number
             // let counter = 0
             data.types.forEach(element => {
-                if (element.type === this.selectedButton.innerHTML) {
+                // if (element.type === this.selectedButton.innerHTML) {
+                //     min_and_max_number = element.min_and_max_number
+                // }
+                if(element.type === ChooseButtonsController.selectedButton.innerHTML){
                     min_and_max_number = element.min_and_max_number
                 }
             })
