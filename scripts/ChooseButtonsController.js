@@ -1,4 +1,4 @@
-(function (AjaxRequest, DOM, CompleteGame) {
+(function (AjaxRequest, DOM, CompleteGame, AddToCart) {
     'use strict'
 
     class ChooseButtonsController {
@@ -46,6 +46,9 @@
 
             let completeGameButton = new DOM('#complete-game')
             completeGameButton.on('click', CompleteGame.handleClickCompleteGameButton.bind(this.getSelectedNumbersAndChooseButton))
+
+            let addToCartButton = new DOM('#add-to-cart')
+            addToCartButton.on('click', AddToCart.handleClickAddToCartButton.bind(this.getSelectedButton))
         }
 
         handleClickClearGame() {
@@ -226,7 +229,11 @@
                 chooseButton: ChooseButtonsController.selectedButton
             }
         }
+
+        getSelectedButton(){
+            return ChooseButtonsController.selectedButton
+        }
     }
 
     window.ChooseButtonsController = ChooseButtonsController
-})(window.AjaxRequest, window.DOM, window.CompleteGame)
+})(window.AjaxRequest, window.DOM, window.CompleteGame, window.AddToCart)

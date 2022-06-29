@@ -1,9 +1,7 @@
-((window, AjaxRequest, ChooseButtonsController, document) => {
+((window, AjaxRequest, document) => {
     'use strict'
 
     class CompleteGame {
-        static alreadyClick = false
-        static arr = []
 
         static handleClickCompleteGameButton() {
             CompleteGame.isNecessaryGenerateRandomNumbers(this())
@@ -13,10 +11,6 @@
             const selectedNumbers = info.selectedNumbers
             const gameType = info.chooseButton.innerHTML
             let range
-
-            // if(this.arr.length > selectedNumbers.length){
-            //     return
-            // }
 
             // // preciso checar novamente os numeros selecionados
             // // após já ter gerado alguns números aleatórios e clicar 
@@ -46,7 +40,7 @@
             // solução para quando já tiverem sido gerados números aleatórios e 
             // o usuário tentar gerar novamente
             let arrAux = document.querySelectorAll('.number-selected')
-            if(arrAux.length > info.selectedNumbers.length){
+            if (arrAux.length > info.selectedNumbers.length) {
                 return
             }
 
@@ -96,9 +90,6 @@
                     numberButtonDefault.className = 'number-selected'
                 }
             })
-            this.alreadyClick = true
-
-
         }
 
         static returnDataInAjaxRequest() {
@@ -109,4 +100,4 @@
     }
 
     window.CompleteGame = CompleteGame
-})(window, window.AjaxRequest, window.ChooseButtonsController, document)
+})(window, window.AjaxRequest, document)
