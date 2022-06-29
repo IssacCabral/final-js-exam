@@ -1,13 +1,11 @@
-((window, AjaxRequest, document) => {
+((window, AjaxRequest, ChooseButtonsController, document) => {
     'use strict'
 
     class CompleteGame {
+        static alreadyClick = false
+        static arr = []
 
         static handleClickCompleteGameButton() {
-            if (this().selectedNumbers.length === 0) {
-                return
-            }
-
             CompleteGame.isNecessaryGenerateRandomNumbers(this())
         }
 
@@ -16,6 +14,13 @@
             const gameType = info.chooseButton.innerHTML
             let range
 
+            // if(this.arr.length > selectedNumbers.length){
+            //     return
+            // }
+
+            // // preciso checar novamente os numeros selecionados
+            // // após já ter gerado alguns números aleatórios e clicar 
+            // // novamente no botão de completar o game
             let dataRequest = this.returnDataInAjaxRequest().types
             let min_and_max_number_in_game_selected
 
@@ -29,10 +34,22 @@
 
             if (selectedNumbers.length === min_and_max_number_in_game_selected) return
 
-            this.generateRandomNumbers({ selectedNumbers, min_and_max_number_in_game_selected, range })
+            this.generateRandomNumbers({
+                selectedNumbers,
+                min_and_max_number_in_game_selected,
+                range,
+                chooseButton: info.chooseButton
+            })
         }
 
         static generateRandomNumbers(info) {
+            // solução para quando já tiverem sido gerados números aleatórios e 
+            // o usuário tentar gerar novamente
+            let arrAux = document.querySelectorAll('.number-selected')
+            if(arrAux.length > info.selectedNumbers.length){
+                return
+            }
+
             let qtdRandomNumbersToBeGenerated = info.min_and_max_number_in_game_selected - info.selectedNumbers.length
             let randomNumbers = []
 
@@ -66,7 +83,22 @@
                 continue
             }
 
-            console.log(randomNumbers)
+            CompleteGame.completeNumbers({ info, randomNumbers })
+        }
+
+        static completeNumbers(infoAndRandomNumbers) {
+            let { randomNumbers } = infoAndRandomNumbers
+
+            let numberButtonsDefault = document.querySelectorAll('.number-default')
+
+            numberButtonsDefault.forEach(numberButtonDefault => {
+                if (randomNumbers.indexOf(Number(numberButtonDefault.innerHTML)) !== -1) {
+                    numberButtonDefault.className = 'number-selected'
+                }
+            })
+            this.alreadyClick = true
+
+
         }
 
         static returnDataInAjaxRequest() {
@@ -77,4 +109,4 @@
     }
 
     window.CompleteGame = CompleteGame
-})(window, window.AjaxRequest, document)
+})(window, window.AjaxRequest, window.ChooseButtonsController, document)

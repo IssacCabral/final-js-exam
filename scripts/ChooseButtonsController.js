@@ -46,7 +46,6 @@
 
             let completeGameButton = new DOM('#complete-game')
             completeGameButton.on('click', CompleteGame.handleClickCompleteGameButton.bind(this.getSelectedNumbersAndChooseButton))
-
         }
 
         handleClickClearGame() {
@@ -61,7 +60,7 @@
 
         handleRulesAndButtons() {
 
-            if(ChooseButtonsController.selectedButton === this){
+            if (ChooseButtonsController.selectedButton === this) {
                 return
             }
 
@@ -184,18 +183,25 @@
             let min_and_max_number
 
             data.types.forEach(element => {
-                if(element.type === ChooseButtonsController.selectedButton.innerHTML){
+                if (element.type === ChooseButtonsController.selectedButton.innerHTML) {
                     min_and_max_number = element.min_and_max_number
                 }
             })
 
+
             let numberButtons = new DOM('.number-default')
             numberButtons.on('click', function () {
+                /** verificar a quantidade de números que já estão selecionados */
+                let qtdButtonNumbersAlreadySelected = document.querySelectorAll('.number-selected').length
+                if (qtdButtonNumbersAlreadySelected === min_and_max_number) {
+                    return
+                }
+
                 if (min_and_max_number == ChooseButtonsController.counter) {
                     return
                 }
 
-                if(this.className === 'number-selected'){
+                if (this.className === 'number-selected') {
                     return
                 }
 
@@ -214,15 +220,11 @@
             return data
         }
 
-        getSelectedChooseButton(){
-            return ChooseButtonsController.selectedButton
-        }
-
-        getSelectedNumbersAndChooseButton(){
+        getSelectedNumbersAndChooseButton() {
             return {
                 selectedNumbers: ChooseButtonsController.selectedNumberButtons,
                 chooseButton: ChooseButtonsController.selectedButton
-            } 
+            }
         }
     }
 
