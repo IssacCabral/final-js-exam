@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     padding: 15px;
+    justify-content:baseline;
 }
 
 .title-game-cart {
@@ -24,6 +25,7 @@
 .total {
     display: flex;
     align-items: center;
+    margin-top: 150px;
 }
 
 .total p {
