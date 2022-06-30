@@ -33,6 +33,9 @@
             })
         }
 
+        setChooseButtonInFirstTime(){
+            this.handleRulesAndButtons.call(document.querySelector('.choose-button'))
+        }
 
         // Lembrar de depois, tentar criar classes para cada chamada
         // dessas callbacks e passar as informações necessárias

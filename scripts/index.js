@@ -6,6 +6,7 @@
 
     function init() {
         chooseButtonsController.createButtons()
+        chooseButtonsController.setChooseButtonInFirstTime()
         chooseButtonsController.addEventToButton()
     }
 

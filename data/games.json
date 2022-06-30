@@ -24,14 +24,6 @@
       "price": 2,
       "min_and_max_number": 5,
       "color": "#F79C31"
-    },
-    {
-      "type": "Poker",
-      "description": "Escolha 4 números dos 20.",
-      "range": 20,
-      "price": 3,
-      "min_and_max_number": 4,
-      "color": "#D71F1F"
     }
   ]
 }
