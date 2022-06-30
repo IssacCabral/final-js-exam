@@ -78,29 +78,39 @@
 
         clearChooseButtonsColors() {
             const background = "#FFFFFF"
-            const lotofacilColor = "#7F3992"
-            const megaSenaColor = "#01AC66"
-            const quinaColor = "#F79C31"
 
-            document.querySelectorAll('.choose-button').forEach(button => {
+            let gameRgbColors = []
+            let data = JSON.parse(new AjaxRequest().loadData())
+            data.types.forEach(game => {
+                gameRgbColors.push(ChooseButtonsController.convertToRgb(game.color))
+            })
+
+            document.querySelectorAll('.choose-button').forEach((button, i) => {
                 if (!(button === this)) {
-                    if (button.innerHTML === 'Lotofácil') {
-                        button.style.color = lotofacilColor
-                        button.style.border = "2px solid " + lotofacilColor
-                        button.style.background = background
-                    }
-                    if (button.innerHTML === 'Mega-Sena') {
-                        button.style.color = megaSenaColor
-                        button.style.border = "2px solid " + megaSenaColor
-                        button.style.background = background
-                    }
-                    if (button.innerHTML === 'Quina') {
-                        button.style.color = quinaColor
-                        button.style.border = "2px solid " + quinaColor
-                        button.style.background = background
-                    }
+                    button.style.color = gameRgbColors[i]
+                    button.style.border = '2px solid ' + gameRgbColors[i]
+                    button.style.background = background
                 }
             })
+        }
+
+        static convertToRgb(color) {
+
+            /* Check for # infront of the value, if it's there, strip it */
+            if (color.substring(0, 1) == '#') {
+                color = color.substring(1);
+            }
+
+            var rgbColor = {};
+
+            /* Grab each pair (channel) of hex values and parse them to ints using hexadecimal decoding */
+            rgbColor.rChannel = parseInt(color.substring(0, 2), 16);
+            rgbColor.gChannel = parseInt(color.substring(2, 4), 16);
+            rgbColor.bChannel = parseInt(color.substring(4), 16);
+
+            let rgb = `rgb(${rgbColor.rChannel}, ${rgbColor.gChannel}, ${rgbColor.bChannel})`
+
+            return rgb;
         }
 
         clearRulesAndButtons() {
@@ -230,7 +240,7 @@
             }
         }
 
-        getSelectedButton(){
+        getSelectedButton() {
             return ChooseButtonsController.selectedButton
         }
     }
