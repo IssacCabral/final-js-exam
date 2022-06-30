@@ -3,6 +3,7 @@
 
     class AddToCart{
         static totalCartValue = 0;
+        static itemId = 0
 
         static handleClickAddToCartButton(){
             AddToCart.isNecessaryAddValuesInCart(this())
@@ -43,6 +44,7 @@
             item.style.alignItems = 'center'
             item.style.justifyContent = 'left'
             item.style.marginBottom = '7px'
+            item.id = ++AddToCart.itemId
 
             let trashButton = this.createTrashButton()            
             item.appendChild(trashButton)
@@ -55,6 +57,9 @@
             item.appendChild(itemContent)
 
             items.appendChild(item)
+            
+            // Associar o evento de click à lixeira
+            trashButton.addEventListener('click', this.handleClickTrashButton.bind(item.id, items, itemContent))
         }
 
         static createTrashButton(){
@@ -152,6 +157,7 @@
             let price = document.createElement('div')
             price.style.fontSize = '13px'
             price.style.marginLeft = '13px'
+            price.className = 'price'
 
             let data = JSON.parse(new AjaxRequest().loadData())
 
@@ -177,6 +183,24 @@
             price.innerHTML = convertToRealCurrency.format(sum);
 
             return price
+        }
+
+        static handleClickTrashButton(items, itemContent){
+            let subtraction = Number(itemContent.children[1].children[1].innerHTML.split(';')[1].replace(',', '.'))
+            AddToCart.totalCartValue -= subtraction;
+            
+            //USando a lib INTL para conversão de moedas
+            const convertToRealCurrency = Intl.NumberFormat('pt-br', {
+                currency: 'BRL',
+                style: 'currency'
+            });
+
+            //Esse código soma o valor total do carrinho de compras
+            const totalValueCartElementHtml = document.querySelector('span.totalValueCart');
+            totalValueCartElementHtml.innerHTML = convertToRealCurrency.format(AddToCart.totalCartValue);
+
+            let itemToRemove = document.getElementById(this)
+            items.removeChild(itemToRemove)
         }
 
     }
