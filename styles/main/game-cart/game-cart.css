@@ -13,6 +13,7 @@
     border-radius: 10px 10px 0px 0px;
     opacity: 1;
     padding: 15px;
+    position: relative;
 }
 
 .title-game-cart {
@@ -23,6 +24,9 @@
     display: flex;
     align-items: center;
     padding: 15px;
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-5%);
 }
 
 .total p {
@@ -31,6 +35,11 @@
     font-size: 20px;
     font-weight: normal;
     color: #707070;
+}
+
+.items {
+    overflow-y: scroll;
+    height: 140px;
 }
 
 #save-button {

@@ -48,7 +48,7 @@
             completeGameButton.on('click', CompleteGame.handleClickCompleteGameButton.bind(this.getSelectedNumbersAndChooseButton))
 
             let addToCartButton = new DOM('#add-to-cart')
-            addToCartButton.on('click', AddToCart.handleClickAddToCartButton.bind(this.getSelectedButton))
+            addToCartButton.on('click', AddToCart.handleClickAddToCartButton.bind(this.getSelectedButton));
         }
 
         handleClickClearGame() {

@@ -2,6 +2,8 @@
     'use strict'
 
     class AddToCart{
+        static totalCartValue = 0;
+
         static handleClickAddToCartButton(){
             AddToCart.isNecessaryAddValuesInCart(this())
         }
@@ -148,17 +150,31 @@
 
         static getPrice(chooseButton){
             let price = document.createElement('div')
-            price.innerHTML = 'R$ '
             price.style.fontSize = '13px'
             price.style.marginLeft = '13px'
 
             let data = JSON.parse(new AjaxRequest().loadData())
 
+            let sum = 0;
             data.types.forEach(game => {
                 if(game.type === chooseButton.innerHTML){
-                    price.innerHTML += game.price
+                    sum += game.price
                 }
             })
+
+            //USando a lib INTL para conversão de moedas
+            const convertToRealCurrency = Intl.NumberFormat('pt-br', {
+                currency: 'BRL',
+                style: 'currency'
+            });
+
+            AddToCart.totalCartValue += sum;
+
+            //Esse código soma o valor total do carrinho de compras
+            const totalValueCartElementHtml = document.querySelector('span.totalValueCart');
+            totalValueCartElementHtml.innerHTML = convertToRealCurrency.format(AddToCart.totalCartValue);
+
+            price.innerHTML = convertToRealCurrency.format(sum);
 
             return price
         }
