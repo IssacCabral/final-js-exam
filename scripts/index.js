@@ -3,11 +3,11 @@
 
     let chooseButtonsController = new ChooseButtonsController()
 
-
     function init() {
         chooseButtonsController.createButtons()
         chooseButtonsController.setChooseButtonInFirstTime()
         chooseButtonsController.addEventToButton()
+        chooseButtonsController.foo()
     }
 
     init()

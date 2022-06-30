@@ -33,7 +33,7 @@
             })
         }
 
-        setChooseButtonInFirstTime(){
+        setChooseButtonInFirstTime() {
             this.handleRulesAndButtons.call(document.querySelector('.choose-button'))
         }
 
@@ -213,21 +213,26 @@
                     return
                 }
 
-                // if (min_and_max_number == ChooseButtonsController.counter) {
-                //     return
-                // }
-
                 if (this.className === 'number-selected') {
                     return
                 }
 
                 ChooseButtonsController.selectedNumberButtons.push(this.innerHTML)
-
                 this.className = 'number-selected'
 
-                //ChooseButtonsController.counter++
             })
 
+        }
+
+        foo() {
+            console.log('cai aqui')
+            // let numberButtonsSelected = new DOM('.number-selected')
+            // numberButtonsSelected.on('click', function () {
+            //     let indexOfSelectedNumber = ChooseButtonsController.selectedNumberButtons.indexOf(this.innerHTML)
+            //     this.className = 'number-default'
+            //     ChooseButtonsController.selectedNumberButtons.splice(indexOfSelectedNumber, 1)
+            //     console.log(ChooseButtonsController.selectedNumberButtons)
+            // })
         }
 
         returnDataInAjaxRequest() {
