@@ -8,7 +8,18 @@
         }
 
         static isNecessaryGenerateRandomNumbers(info) {
-            const selectedNumbers = info.selectedNumbers
+            let selectedNumbers = document.querySelectorAll('.number-selected')
+            let auxSelectedNumbers = []
+
+            if(selectedNumbers.length === 0){
+                selectedNumbers = []
+            }else{
+                selectedNumbers.forEach(element => {
+                    auxSelectedNumbers.push(Number(element.innerHTML))
+                })
+                selectedNumbers = auxSelectedNumbers
+            }
+
             const gameType = info.chooseButton.innerHTML
             let range
 
@@ -26,6 +37,7 @@
                 }
             })
 
+            
             if (selectedNumbers.length === min_and_max_number_in_game_selected) return
 
             this.generateRandomNumbers({

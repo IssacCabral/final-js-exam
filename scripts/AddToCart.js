@@ -4,14 +4,15 @@
     class AddToCart{
         static totalCartValue = 0;
         static itemId = 0
+        static counterNumberButtonSelected
 
         static handleClickAddToCartButton(){
             AddToCart.isNecessaryAddValuesInCart(this())
         }
 
         static isNecessaryAddValuesInCart(chooseButton){
-            let counterNumberButtonSelected = document.querySelectorAll('.number-selected').length
-            if(counterNumberButtonSelected === 0){
+            this.counterNumberButtonSelected = document.querySelectorAll('.number-selected').length
+            if(this.counterNumberButtonSelected === 0){
                 alert('Complete algum jogo para poder adicionar ao CART!')
                 return
             }
@@ -25,12 +26,13 @@
                 }
             })
 
-            if(min_and_max_number !== counterNumberButtonSelected){
+            if(min_and_max_number !== this.counterNumberButtonSelected){
                 alert(`selecione ${min_and_max_number} números`)
                 return
             }
 
             AddToCart.createNewCartItem(chooseButton)
+            this.counterNumberButtonSelected = 0
         }
 
         static createNewCartItem(chooseButton){
@@ -58,6 +60,9 @@
 
             items.appendChild(item)
             
+            //Limpar cartela após adicionar item
+            this.cleanCart()
+
             // Associar o evento de click à lixeira
             trashButton.addEventListener('click', this.handleClickTrashButton.bind(item.id, items, itemContent))
         }
@@ -201,6 +206,13 @@
 
             let itemToRemove = document.getElementById(this)
             items.removeChild(itemToRemove)
+        }
+
+        static cleanCart(){
+            let numberButtons = document.querySelectorAll('.number-selected')
+            numberButtons.forEach(number => {
+                number.className = 'number-default'
+            })
         }
 
     }

@@ -117,7 +117,7 @@
         }
 
         setButtonColors() {
-            // clear
+            // primeiro limpa, depois seta
             ChooseButtonsController.prototype.clearChooseButtonsColors.call(this)
             ChooseButtonsController.prototype.clearRulesAndButtons.call(this)
             ChooseButtonsController.prototype.clearNumberButtons.call(this)
@@ -200,9 +200,9 @@
                     return
                 }
 
-                if (min_and_max_number == ChooseButtonsController.counter) {
-                    return
-                }
+                // if (min_and_max_number == ChooseButtonsController.counter) {
+                //     return
+                // }
 
                 if (this.className === 'number-selected') {
                     return
@@ -212,7 +212,7 @@
 
                 this.className = 'number-selected'
 
-                ChooseButtonsController.counter++
+                //ChooseButtonsController.counter++
             })
 
         }
