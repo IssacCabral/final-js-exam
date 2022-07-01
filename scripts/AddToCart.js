@@ -11,7 +11,7 @@
         }
 
         static isNecessaryAddValuesInCart(chooseButton){
-            this.counterNumberButtonSelected = document.querySelectorAll('.number-selected').length
+            this.counterNumberButtonSelected = document.querySelectorAll('.number-default.active').length
             if(this.counterNumberButtonSelected === 0){
                 alert('Complete algum jogo para poder adicionar ao CART!')
                 return
@@ -38,7 +38,7 @@
         static createNewCartItem(chooseButton){
             let items = document.querySelector('.items')
             
-            let selectedNumberButtons = document.querySelectorAll('.number-selected')
+            let selectedNumberButtons = document.querySelectorAll('.number-default.active')
             
             let item = document.createElement('div')
             item.className = 'item'
@@ -209,7 +209,7 @@
         }
 
         static cleanCart(){
-            let numberButtons = document.querySelectorAll('.number-selected')
+            let numberButtons = document.querySelectorAll('.number-default.active')
             numberButtons.forEach(number => {
                 number.className = 'number-default'
             })

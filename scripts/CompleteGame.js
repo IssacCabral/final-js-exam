@@ -8,7 +8,7 @@
         }
 
         static isNecessaryGenerateRandomNumbers(info) {
-            let selectedNumbers = document.querySelectorAll('.number-selected')
+            let selectedNumbers = document.querySelectorAll('.number-default.active')
             let auxSelectedNumbers = []
 
             if(selectedNumbers.length === 0){
@@ -51,7 +51,7 @@
         static generateRandomNumbers(info) {
             // solução para quando já tiverem sido gerados números aleatórios e 
             // o usuário tentar gerar novamente
-            let arrAux = document.querySelectorAll('.number-selected')
+            let arrAux = document.querySelectorAll('.number-default.active')
             if (arrAux.length > info.selectedNumbers.length) {
                 return
             }
@@ -99,7 +99,7 @@
 
             numberButtonsDefault.forEach(numberButtonDefault => {
                 if (randomNumbers.indexOf(Number(numberButtonDefault.innerHTML)) !== -1) {
-                    numberButtonDefault.className = 'number-selected'
+                    numberButtonDefault.className = 'number-default active'
                 }
             })
         }

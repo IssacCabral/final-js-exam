@@ -55,7 +55,7 @@
         }
 
         handleClickClearGame() {
-            let numberButtons = new DOM('.number-selected')
+            let numberButtons = new DOM('.number-default.active')
 
             numberButtons.getAll().forEach(button => {
                 button.className = 'number-default'
@@ -207,26 +207,24 @@
 
             let numberButtons = new DOM('.number-default')
             numberButtons.on('click', function () {
-                /** verificar a quantidade de números que já estão selecionados */
-                let qtdButtonNumbersAlreadySelected = document.querySelectorAll('.number-selected').length
-                if (qtdButtonNumbersAlreadySelected === min_and_max_number) {
-                    return
+                const hasMaxNumbersSelected = document.querySelectorAll('.number-default.active').length == min_and_max_number
+                if(this.classList.contains('active') && hasMaxNumbersSelected){
+                    this.classList.remove('active')
                 }
+                if(hasMaxNumbersSelected) return 
 
-                if (this.className === 'number-selected') {
-                    return
-                }
+                this.classList.contains('active') ? this.classList.remove('active') : this.classList.add('active')  
+
 
                 ChooseButtonsController.selectedNumberButtons.push(this.innerHTML)
-                this.className = 'number-selected'
 
             })
+
 
         }
 
         foo() {
-            console.log('cai aqui')
-            // let numberButtonsSelected = new DOM('.number-selected')
+            // let numberButtonsSelected = new DOM('.number-default.active')
             // numberButtonsSelected.on('click', function () {
             //     let indexOfSelectedNumber = ChooseButtonsController.selectedNumberButtons.indexOf(this.innerHTML)
             //     this.className = 'number-default'

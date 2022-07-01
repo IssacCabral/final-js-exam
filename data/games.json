@@ -24,6 +24,14 @@
       "price": 2,
       "min_and_max_number": 5,
       "color": "#F79C31"
+    },
+    {
+      "type": "bixo",
+      "description": "fode você com 7 números.",
+      "range": 100,
+      "price": 9.5,
+      "min_and_max_number": 7,
+      "color": "#FF0000"
     }
   ]
 }

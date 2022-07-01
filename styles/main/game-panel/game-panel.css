@@ -102,7 +102,7 @@
     cursor: pointer;
 }
 
-.number-selected {
+.active {
     background: #36afc7 0% 0% no-repeat padding-box;
     text-align: center;
     font: normal normal bold 14px/24px Roboto;
