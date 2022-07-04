@@ -51,16 +51,16 @@
         static generateRandomNumbers(info) {
             // solução para quando já tiverem sido gerados números aleatórios e 
             // o usuário tentar gerar novamente
-            let arrAux = document.querySelectorAll('.number-default.active')
-            if (arrAux.length > info.selectedNumbers.length) {
+            let arrayAuxiliar = document.querySelectorAll('.number-default.active')
+            if (arrayAuxiliar.length > info.selectedNumbers.length) {
                 return
             }
 
-            let qtdRandomNumbersToBeGenerated = info.min_and_max_number_in_game_selected - info.selectedNumbers.length
+            const qtdRandomNumbersToBeGenerated = info.min_and_max_number_in_game_selected - info.selectedNumbers.length
             let randomNumbers = []
 
             while (randomNumbers.length < qtdRandomNumbersToBeGenerated) {
-                let randomNumber = Math.floor(Math.random() * Number(info.range) + 1)
+                const randomNumber = Math.floor(Math.random() * Number(info.range) + 1)
                 let aux = true
 
                 for (let i = 0; i < info.selectedNumbers.length; i++) {
@@ -105,9 +105,9 @@
         }
 
         static returnDataInAjaxRequest() {
-            let ajaxRequest = new AjaxRequest()
-            let data = JSON.parse(ajaxRequest.loadData())
-            return data
+            const ajaxRequest = new AjaxRequest()
+            const gameData = JSON.parse(ajaxRequest.loadData())
+            return gameData
         }
     }
 

@@ -18,9 +18,9 @@
 
         createButtons() {
 
-            const data = JSON.parse(this.#ajaxRequest.loadData())
+            const gameData = JSON.parse(this.#ajaxRequest.loadData())
 
-            data.types.forEach(element => {
+            gameData.types.forEach(element => {
                 let button = document.createElement('button')
 
                 button.innerHTML = element.type
@@ -41,13 +41,13 @@
         }
 
         setGameTitle(gameTitle){
-            let gameTitleClass = document.querySelector('.game-title')
+            const gameTitleClass = document.querySelector('.game-title')
             gameTitleClass.innerHTML = ''
             
-            let newBet = document.createElement('h3')
+            const newBet = document.createElement('h3')
             newBet.innerHTML = 'NEW BET '
 
-            let gameTitlePhrase = document.createElement('p')
+            const gameTitlePhrase = document.createElement('p')
             gameTitlePhrase.innerHTML = "FOR " + gameTitle.toUpperCase()
 
             gameTitleClass.appendChild(newBet)
@@ -61,18 +61,18 @@
             this.#chooseButtons = new DOM('.choose-button')
             this.#chooseButtons.on('click', this.handleRulesAndButtons)
 
-            let clearGameButton = new DOM('#clear-game')
+            const clearGameButton = new DOM('#clear-game')
             clearGameButton.on('click', this.handleClickClearGame)
 
-            let completeGameButton = new DOM('#complete-game')
+            const completeGameButton = new DOM('#complete-game')
             completeGameButton.on('click', CompleteGame.handleClickCompleteGameButton.bind(this.getSelectedNumbersAndChooseButton))
 
-            let addToCartButton = new DOM('#add-to-cart')
+            const addToCartButton = new DOM('#add-to-cart')
             addToCartButton.on('click', AddToCart.handleClickAddToCartButton.bind(this.getSelectedButton));
         }
 
         handleClickClearGame() {
-            let numberButtons = new DOM('.number-default.active')
+            const numberButtons = new DOM('.number-default.active')
 
             numberButtons.getAll().forEach(button => {
                 button.className = 'number-default'
@@ -100,8 +100,8 @@
             const background = "#FFFFFF"
 
             let gameRgbColors = []
-            let data = JSON.parse(new AjaxRequest().loadData())
-            data.types.forEach(game => {
+            const gameData = JSON.parse(new AjaxRequest().loadData())
+            gameData.types.forEach(game => {
                 gameRgbColors.push(ChooseButtonsController.convertToRgb(game.color))
             })
 
@@ -134,15 +134,15 @@
         }
 
         clearRulesAndButtons() {
-            let rules = document.querySelector('.rules')
-            let checkIfExistsRuleText = document.querySelector('.rule-text')
+            const rules = document.querySelector('.rules')
+            const checkIfExistsRuleText = document.querySelector('.rule-text')
             if (checkIfExistsRuleText) {
                 rules.removeChild(checkIfExistsRuleText)
             }
         }
 
         clearNumberButtons() {
-            let checkIfExistsNumberButtons = document.querySelector('.number-buttons-div')
+            const checkIfExistsNumberButtons = document.querySelector('.number-buttons-div')
             if (checkIfExistsNumberButtons.hasChildNodes()) checkIfExistsNumberButtons.innerText = ""
         }
 
@@ -152,13 +152,13 @@
             ChooseButtonsController.prototype.clearRulesAndButtons.call(this)
             ChooseButtonsController.prototype.clearNumberButtons.call(this)
 
-            let backgroundColorChooseButton = this.style.background
-            let chooseButtonColor = this.style.color
-            let colorToApplyInButtons = this.style.color
+            const backgroundColorChooseButton = this.style.background
+            const chooseButtonColor = this.style.color
+            const colorToApplyInButtons = this.style.color
 
-            let completeGameButton = document.querySelector('#complete-game')
-            let clearGameButton = document.querySelector('#clear-game')
-            let addToCartButton = document.querySelector('#add-to-cart')
+            const completeGameButton = document.querySelector('#complete-game')
+            const clearGameButton = document.querySelector('#clear-game')
+            const addToCartButton = document.querySelector('#add-to-cart')
 
             /**Set Colors in Selected Button */
             this.style.color = backgroundColorChooseButton
@@ -180,28 +180,28 @@
         setRulesAndRenderNumbers() {
             ChooseButtonsController.prototype.setGameTitle(this.innerHTML)
 
-            let rule = document.querySelector('.rules')
-            let ruleText = document.createElement('p')
+            const rule = document.querySelector('.rules')
+            const ruleText = document.createElement('p')
 
-            let numberButtonsDiv = document.querySelector('.number-buttons-div')
+            const numberButtonsDiv = document.querySelector('.number-buttons-div')
 
-            let ajaxRequest = new AjaxRequest()
-            let data = JSON.parse(ajaxRequest.loadData())
+            const ajaxRequest = new AjaxRequest()
+            const gameData = JSON.parse(ajaxRequest.loadData())
 
-            data.types.forEach(element => {
+            gameData.types.forEach(element => {
                 if (element.type === this.innerHTML) {
                     ruleText.appendChild(document.createTextNode(element.description))
                     ruleText.classList.add('rule-text')
                     rule.appendChild(ruleText)
                 }
             })
-            data.types.forEach(element => {
+            gameData.types.forEach(element => {
                 if (element.type === this.innerHTML) {
                     // generate numberButtons
                     let range = element.range
 
                     for (let i = 0; i < range; i++) {
-                        let numberButton = document.createElement('button')
+                        const numberButton = document.createElement('button')
                         numberButton.className = 'number-default'
 
                         numberButton.innerHTML = i + 1
@@ -214,17 +214,17 @@
         }
 
         selectNumberButtonsEvent() {
-            let data = ChooseButtonsController.prototype.returnDataInAjaxRequest()
+            const gameData = ChooseButtonsController.prototype.returnDataInAjaxRequest()
             let min_and_max_number
 
-            data.types.forEach(element => {
+            gameData.types.forEach(element => {
                 if (element.type === ChooseButtonsController.selectedButton.innerHTML) {
                     min_and_max_number = element.min_and_max_number
                 }
             })
 
 
-            let numberButtons = new DOM('.number-default')
+            const numberButtons = new DOM('.number-default')
             numberButtons.on('click', function () {
                 const hasMaxNumbersSelected = document.querySelectorAll('.number-default.active').length == min_and_max_number
                 if(this.classList.contains('active') && hasMaxNumbersSelected){
@@ -243,9 +243,9 @@
         }
 
         returnDataInAjaxRequest() {
-            let ajaxRequest = new AjaxRequest()
-            let data = JSON.parse(ajaxRequest.loadData())
-            return data
+            const ajaxRequest = new AjaxRequest()
+            const gameData = JSON.parse(ajaxRequest.loadData())
+            return gameData
         }
 
         getSelectedNumbersAndChooseButton() {

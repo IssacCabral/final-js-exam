@@ -17,10 +17,10 @@
                 return
             }
 
-            let data = JSON.parse(new AjaxRequest().loadData())
+            const gameData = JSON.parse(new AjaxRequest().loadData())
             let min_and_max_number
 
-            data.types.forEach(gameType => {
+            gameData.types.forEach(gameType => {
                 if(gameType.type === chooseButton.innerHTML){
                     min_and_max_number = gameType.min_and_max_number
                 }
