@@ -1,4 +1,4 @@
-((window, AjaxRequest, document) => {
+((window, AjaxRequest, document, DOM) => {
     'use strict'
 
     class AddToCart {
@@ -49,7 +49,10 @@
         static createNewCartItem(chooseButton) {
             let items = document.querySelector('.items')
 
-            
+            let itemCounter = document.querySelectorAll('.item')
+            if(itemCounter.length === 0){
+                items.innerHTML = ''
+            }
 
             let selectedNumberButtons = document.querySelectorAll('.number-default.active')
 
@@ -79,7 +82,20 @@
             // Associar o evento de click à lixeira
             trashButton.addEventListener('click', this.handleClickTrashButton.bind(item.id, items, itemContent))
 
+            this.removeEmptyCartMessage()
             this.checkIfIsNecessaryAddScroll()
+        }
+
+        static removeEmptyCartMessage(){
+            let items = document.querySelector('.items')
+            console.log(items.children)
+        }
+
+        static setEmptyCartMessage(){
+            const items = document.querySelector('.items')
+            if(items.children.length === 0){
+                items.innerHTML = 'Carrinho vazio...'
+            }
         }
 
         static createTrashButton() {
@@ -222,6 +238,7 @@
             let itemToRemove = document.getElementById(this)
             items.removeChild(itemToRemove)
 
+            AddToCart.setEmptyCartMessage()
             AddToCart.checkIfIsNecessaryAddScroll()
         }
 
@@ -235,4 +252,4 @@
     }
 
     window.AddToCart = AddToCart
-})(window, window.AjaxRequest, document)
+})(window, window.AjaxRequest, document, window.DOM)

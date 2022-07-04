@@ -36,8 +36,6 @@
 
         setChooseButtonInFirstTime() {
             this.handleRulesAndButtons.call(document.querySelector('.choose-button'))
-            this.setGameTitle(document.querySelector('.choose-button').innerHTML)
-
         }
 
         setGameTitle(gameTitle){
@@ -52,6 +50,13 @@
 
             gameTitleClass.appendChild(newBet)
             gameTitleClass.appendChild(gameTitlePhrase)
+        }
+
+        setEmptyCartMessage(){
+            const items = document.querySelector('.items')
+            if(items.children.length === 0){
+                items.innerHTML = 'Carrinho vazio...'
+            }
         }
 
         // Lembrar de depois, tentar criar classes para cada chamada
@@ -210,6 +215,7 @@
                 }
             })
 
+            ChooseButtonsController.prototype.setEmptyCartMessage()
             ChooseButtonsController.prototype.selectNumberButtonsEvent()
         }
 
