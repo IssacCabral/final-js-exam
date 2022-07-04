@@ -227,13 +227,18 @@
             const numberButtons = new DOM('.number-default')
             numberButtons.on('click', function () {
                 const hasMaxNumbersSelected = document.querySelectorAll('.number-default.active').length == min_and_max_number
+                
+                if( !(this.classList.contains('active')) && hasMaxNumbersSelected){
+                    alert('quantidade máxima já selecionada')
+                    return
+                }
+                
                 if(this.classList.contains('active') && hasMaxNumbersSelected){
                     this.classList.remove('active')
                 }
                 if(hasMaxNumbersSelected) return 
 
                 this.classList.contains('active') ? this.classList.remove('active') : this.classList.add('active')  
-
 
                 ChooseButtonsController.selectedNumberButtons.push(this.innerHTML)
 

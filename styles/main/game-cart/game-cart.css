@@ -38,7 +38,7 @@
 }
 
 .items {
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     height: 140px;
 }
 
