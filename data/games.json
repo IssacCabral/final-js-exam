@@ -24,6 +24,14 @@
       "price": 2,
       "min_and_max_number": 5,
       "color": "#F79C31"
+    },
+    {
+      "type": "LotoMania",
+      "description": "Escolha 2 números para apostar na lotoMania. Você ganha acertando 11, 12, 13, 14 ou 15 números. São muitas chances de ganhar, e agora você joga de onde estiver!",
+      "range": 10,
+      "price": 50.0,
+      "min_and_max_number": 2,
+      "color": "#FF33CE"
     }
   ]
 }

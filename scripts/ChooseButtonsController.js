@@ -17,7 +17,8 @@
         }
 
         createButtons() {
-            let data = JSON.parse(this.#ajaxRequest.loadData())
+
+            const data = JSON.parse(this.#ajaxRequest.loadData())
 
             data.types.forEach(element => {
                 let button = document.createElement('button')
@@ -35,6 +36,22 @@
 
         setChooseButtonInFirstTime() {
             this.handleRulesAndButtons.call(document.querySelector('.choose-button'))
+            this.setGameTitle(document.querySelector('.choose-button').innerHTML)
+
+        }
+
+        setGameTitle(gameTitle){
+            let gameTitleClass = document.querySelector('.game-title')
+            gameTitleClass.innerHTML = ''
+            
+            let newBet = document.createElement('h3')
+            newBet.innerHTML = 'NEW BET '
+
+            let gameTitlePhrase = document.createElement('p')
+            gameTitlePhrase.innerHTML = "FOR " + gameTitle.toUpperCase()
+
+            gameTitleClass.appendChild(newBet)
+            gameTitleClass.appendChild(gameTitlePhrase)
         }
 
         // Lembrar de depois, tentar criar classes para cada chamada
@@ -161,6 +178,8 @@
         }
 
         setRulesAndRenderNumbers() {
+            ChooseButtonsController.prototype.setGameTitle(this.innerHTML)
+
             let rule = document.querySelector('.rules')
             let ruleText = document.createElement('p')
 
@@ -221,16 +240,6 @@
             })
 
 
-        }
-
-        foo() {
-            // let numberButtonsSelected = new DOM('.number-default.active')
-            // numberButtonsSelected.on('click', function () {
-            //     let indexOfSelectedNumber = ChooseButtonsController.selectedNumberButtons.indexOf(this.innerHTML)
-            //     this.className = 'number-default'
-            //     ChooseButtonsController.selectedNumberButtons.splice(indexOfSelectedNumber, 1)
-            //     console.log(ChooseButtonsController.selectedNumberButtons)
-            // })
         }
 
         returnDataInAjaxRequest() {
